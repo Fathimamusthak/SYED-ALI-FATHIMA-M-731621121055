@@ -1,0 +1,36 @@
+<html>
+    <head>
+<title>arrow function</title>
+</head>
+<body>
+<script>
+const sum = () => 10+20;
+document.write("<br>Addition : " + sum());
+
+const sub = (x,y) => x-y;
+document.write("<br>Subtraction : " + sub(20,10));
+
+const mul = (x,y) => {return (x*y)};
+document.write("<br>Multiplication : " + mul(20,10));
+
+const big = (x,y) => {
+    if(x>y)
+    return x;
+else
+return y;
+};
+document.write("<br>Biggest Number : " + big(10,20));
+
+const factorial = (x) => {
+    let fact=1;
+        let i;
+        for(i=1;i<=x;i++){
+            fact=fact*i;
+        }
+        return fact;
+};
+document.write("<br>Factorial  Number : " + factorial(5));
+</script>
+
+    </body>
+    </html>
