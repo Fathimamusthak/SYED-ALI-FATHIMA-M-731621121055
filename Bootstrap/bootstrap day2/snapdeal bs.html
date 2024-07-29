@@ -15,7 +15,7 @@
   color: rgb(0, 0, 0);
 }
 .one{
-    padding: 10px;
+    padding: 2px;
     background-color: red;
     color: black;
 
@@ -60,7 +60,41 @@
     width: 150px;
     height: 50px;
  }
+ *.mySlides {display: none;}
+   img {vertical-align: middle;}
+   /* Slideshow container */
+.slideshow-container {
+  max-width: 500px;
+  position: relative;
+  margin: auto;
+  top: -650px;
+}
+/* The dots/bullets/indicators */
+.dot {
+  height: 15px;
+  width: 500px;
+  margin: 0 2px;
+  background-color:violet;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
 
+.active {
+  background-color:green;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 5s;
+}
+
+@keyframes fade {
+  from {opacity: 1} 
+  to {opacity: 3}
+}
+ 
 </style>
 </head>
 <body>
@@ -71,7 +105,7 @@
 </div>   
 </div>
 <div class="one">
-    <img src="snapdeal.png" width="200px" height="150px">
+    <img src="snap.png" width="175px" height="65px">
     <i style='font-size:24px'></i>
     <div class="search-container">
         <form >
@@ -79,7 +113,6 @@
     <button type="button" class="btn btn-primary">Search</button></center>
         </form>
       </div>
-   
 </div>
 <div class="vertical">
     <a href="#" class="active">Top Categories</a>
@@ -108,6 +141,46 @@
     <a href="#">Travel</a>
     <a href="#">Two Wheelers</a>
 </div>
+</div>
 
+<center>
+  <div class="slideshow-container">
+  
+    <div class="mySlides fade">
+      <img src="shop1.jpg" style="width: 750px;">
+    </div>
+    
+    <div class="mySlides fade">
+      <img src="2.avif" style="width: 750px;">
+    </div>
+    
+    <div class="mySlides fade">
+      <img src="3.avif" style="width: 750px;">
+    </div>
+    
+    </div>
+  </center>
+  
+  <script>
+    let slideIndex =0;
+    showSlides();
+    
+    function showSlides() {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      slideIndex++;
+      if (slideIndex < slides.length) {slideIndex = 1}    
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";  
+      dots[slideIndex-1].className += " active";
+      setTimeout(showSlides, 2000); // Change image every 2 seconds
+    }
+    </script>
 </body>
 </html>
