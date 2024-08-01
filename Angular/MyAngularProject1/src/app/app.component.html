@@ -1,0 +1,36 @@
+<!--<h1 [ngClass]="myClass">Structural and Attribute Directives Example</h1>
+<br>
+<button (click)="changeFlag()">Show or Hide Div</button>
+<br>
+<div *ngIf="flag" [ngStyle]="myStyle">
+  <br>
+  <ul>
+    <li *ngFor="let vec of vehicles"  (click)="setSelectedItem(vec)">{{vec}}</li>
+  </ul>
+  <br>
+  <b>You have selected:{{selectedVehicle}}</b>
+  <br>
+  <div [ngSwitch]="selectedVehicle">
+    <font color="green" *ngSwitchCase="'Two Wheeler'">Bike</font>
+    <font color="green" *ngSwitchCase="'Three Wheeler'">Auto</font>
+    <font color="green" *ngSwitchCase="'Four Wheeler'">Car</font>
+    <font color="green" *ngSwitchDefault>Invalid</font>
+  </div>
+  <br>
+  <button (click)="changeStyle()">Change</button>
+</div>-->
+
+
+<!--<table width="80%" align="center">
+  <tr>
+    <th><a routerLink="home">Home</a></th>
+    <th><a routerLink="contact">Contact</a></th>
+    <th><a routerLink="about">About</a></th>
+</tr>
+</table>
+<div>
+  This is the space for New Component
+  <router-outlet></router-outlet>
+</div>-->
+
+<app-child></app-child>
