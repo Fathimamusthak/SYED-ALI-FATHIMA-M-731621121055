@@ -1,0 +1,246 @@
+SQL> create table employee(eid number(10),ename varchar(10),esalary number(5),dno number(3));
+
+Table created.
+
+SQL> insert into employee values(101,'Valan',7000,10);
+
+1 row created.
+
+SQL> insert into employee values(102,'Raj',3000,10);
+
+1 row created.
+
+SQL> insert into employee values(103,'Kumar',4000,20);
+
+1 row created.
+
+SQL> insert into employee values(104,'Vijay',5000,20);
+
+1 row created.
+
+SQL> insert into employee values(105,'Ajay',6000,30);
+
+1 row created.
+
+SQL> insert into employee values(106,'',3000,30);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from employee;
+
+       EID ENAME         ESALARY        DNO
+---------- ---------- ---------- ----------
+       101 Valan            7000         10
+       102 Raj              3000         10
+       103 Kumar            4000         20
+       104 Vijay            5000         20
+       105 Ajay             6000         30
+       106                  3000         30
+
+6 rows selected.
+
+SQL> select dno,count(%) from employee group by dno;
+select dno,count(%) from employee group by dno
+                 *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> select dno,count(*) from employee group by dno;
+
+       DNO   COUNT(*)
+---------- ----------
+        30          2
+        20          2
+        10          2
+
+SQL> select dno,count(*) sum(esalary),avg(esalary),min(esalary),max(esalary) from employee group by dno;
+select dno,count(*) sum(esalary),avg(esalary),min(esalary),max(esalary) from employee group by dno
+                       *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select dno,count(*) ,sum(esalary),avg(esalary),min(esalary),max(esalary) from employee group by dno;
+
+       DNO   COUNT(*) SUM(ESALARY) AVG(ESALARY) MIN(ESALARY) MAX(ESALARY)
+---------- ---------- ------------ ------------ ------------ ------------
+        30          2         9000         4500         3000         6000
+        20          2         9000         4500         4000         5000
+        10          2        10000         5000         3000         7000
+
+SQL> select dno,count(*) ,sum(esalary),avg(esalary),min(esalary),max(esalary) from employee group by dno order by dno;
+
+       DNO   COUNT(*) SUM(ESALARY) AVG(ESALARY) MIN(ESALARY) MAX(ESALARY)
+---------- ---------- ------------ ------------ ------------ ------------
+        10          2        10000         5000         3000         7000
+        20          2         9000         4500         4000         5000
+        30          2         9000         4500         3000         6000
+
+SQL> select dno,count(*) ,sum(esalary),avg(esalary),min(esalary),max(esalary) from employee group by having avg(esalary)<5000 dno order by dno;
+select dno,count(*) ,sum(esalary),avg(esalary),min(esalary),max(esalary) from employee group by having avg(esalary)<5000 dno order by dno
+                                                                                                *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> select dno,count(*) ,sum(esalary),avg(esalary),min(esalary),max(esalary) from employee group by dno having avg(esalary)<5000 dno order by dno;
+select dno,count(*) ,sum(esalary),avg(esalary),min(esalary),max(esalary) from employee group by dno having avg(esalary)<5000 dno order by dno
+                                                                                                                             *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> select dno,count(*) ,sum(esalary),avg(esalary),min(esalary),max(esalary) from employee group by dno having avg(esalary)<5000  order by dno;
+
+       DNO   COUNT(*) SUM(ESALARY) AVG(ESALARY) MIN(ESALARY) MAX(ESALARY)
+---------- ---------- ------------ ------------ ------------ ------------
+        20          2         9000         4500         4000         5000
+        30          2         9000         4500         3000         6000
+
+SQL> select dno,count(*) ,sum(esalary),avg(esalary),min(esalary),max(esalary) from employee group by dno having min(esalary)>5000  order by dno;
+
+no rows selected
+
+SQL> select dno,count(*) ,sum(esalary),avg(esalary),min(esalary),max(esalary) from employee group by dno having min(esalary)>3000  order by dno;
+
+       DNO   COUNT(*) SUM(ESALARY) AVG(ESALARY) MIN(ESALARY) MAX(ESALARY)
+---------- ---------- ------------ ------------ ------------ ------------
+        20          2         9000         4500         4000         5000
+
+SQL> create table student(reg_no number(5) primary key,stud_name varchar2(20) not null,stud_email varchar2(20) unique,stud_age number(3) check(stud_age>0),stud_location varchar2(20) default 'Erode');
+
+Table created.
+
+SQL> insert into student values(1234,'Fathima','fathima@gmail.com',20,'karur');
+
+1 row created.
+
+SQL> insert into student values(123456,'','fathimfkgjgrrera@gmail.com',2000,'');
+insert into student values(123456,'','fathimfkgjgrrera@gmail.com',2000,'')
+                           *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column
+
+
+SQL> insert into student values(12346,'','fathimfkgjgrrera@gmail.com',2000,'');
+insert into student values(12346,'','fathimfkgjgrrera@gmail.com',2000,'')
+                                 *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SYSTEM"."STUDENT"."STUD_NAME")
+
+
+SQL> insert into student values(12346,'dfgfg','fathimfkgjgrrera@gmail.com',2000,'');
+insert into student values(12346,'dfgfg','fathimfkgjgrrera@gmail.com',2000,'')
+                                         *
+ERROR at line 1:
+ORA-12899: value too large for column "SYSTEM"."STUDENT"."STUD_EMAIL" (actual:
+26, maximum: 20)
+
+
+SQL> insert into student values(12346,'dfgfg','fathi@gmail.com',2000,'');
+insert into student values(12346,'dfgfg','fathi@gmail.com',2000,'')
+                                                           *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column
+
+
+SQL> insert into student values(12346,'dfgfg','fathi@gmail.com',200,'');
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from student;
+
+    REG_NO STUD_NAME            STUD_EMAIL             STUD_AGE
+---------- -------------------- -------------------- ----------
+STUD_LOCATION
+--------------------
+      1234 Fathima              fathima@gmail.com            20
+karur
+
+     12346 dfgfg                fathi@gmail.com             200
+
+
+
+SQL> insert into student values(12346,'dfgfg','fathi@gmail.com',2000,);
+insert into student values(12346,'dfgfg','fathi@gmail.com',2000,)
+                                                                *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> insert into student values(12346,'dfgfg','fathi@gmail.com',2000, );
+insert into student values(12346,'dfgfg','fathi@gmail.com',2000, )
+                                                                 *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> insert into student values(12346,'dfgfg','fathi@gmail.com',2000,' ' );
+insert into student values(12346,'dfgfg','fathi@gmail.com',2000,' ' )
+                                                           *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column
+
+
+SQL> insert into student values(12346,'dfgfg','fathi@gmail.com',200, );
+insert into student values(12346,'dfgfg','fathi@gmail.com',200, )
+                                                                *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> insert into student values(12346,'dfgfg','fathi@gmail.com',200,'' );
+insert into student values(12346,'dfgfg','fathi@gmail.com',200,'' )
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SYSTEM.SYS_C007000) violated
+
+
+SQL> insert into student values(12346,'dfgfg','fathi@gmail.com',200);
+insert into student values(12346,'dfgfg','fathi@gmail.com',200)
+            *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> insert into student values(12346,'dfgfg','fathi@gmail.com',200,);
+insert into student values(12346,'dfgfg','fathi@gmail.com',200,)
+                                                               *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> insert into student values(12346,'dfgfg','fathi@gmail.com',200, );
+insert into student values(12346,'dfgfg','fathi@gmail.com',200, )
+                                                                *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from student;
+
+    REG_NO STUD_NAME            STUD_EMAIL             STUD_AGE
+---------- -------------------- -------------------- ----------
+STUD_LOCATION
+--------------------
+      1234 Fathima              fathima@gmail.com            20
+karur
+
+     12346 dfgfg                fathi@gmail.com             200
+
+
+
+SQL>

@@ -1,0 +1,155 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Thu Aug 8 15:10:37 2024
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect system
+Enter password:
+Connected.
+SQL> create table department(dno number(5) primary key,dname varchar2(20));
+
+Table created.
+
+SQL> create table employee1(eid number(5) primary key,ename varchar2(20),esalary number(5),dno number(5),foreign key (dno) references department(dno));
+
+Table created.
+
+SQL> insert into employee1 values(101,'Fathima',2000,10);
+insert into employee1 values(101,'Fathima',2000,10)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SYSTEM.SYS_C007004) violated - parent key not
+found
+
+
+SQL> insert into department values(10,'biomedical');
+
+1 row created.
+
+SQL> insert into employee1 values(101,'Fathima',2000,10);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from employee1;
+
+       EID ENAME                   ESALARY        DNO
+---------- -------------------- ---------- ----------
+       101 Fathima                    2000         10
+
+SQL> select * from department;
+
+       DNO DNAME
+---------- --------------------
+        10 biomedical
+
+SQL> select * from employee;
+
+       EID ENAME         ESALARY        DNO
+---------- ---------- ---------- ----------
+       101 Valan            7000         10
+       102 Raj              3000         10
+       103 Kumar            4000         20
+       104 Vijay            5000         20
+       105 Ajay             6000         30
+       106                  3000         30
+
+6 rows selected.
+
+SQL> create view myview as select *from employee where dno=10;
+
+View created.
+
+SQL> select * from myview;
+
+       EID ENAME         ESALARY        DNO
+---------- ---------- ---------- ----------
+       101 Valan            7000         10
+       102 Raj              3000         10
+
+SQL> update myview set esalary=3000 where eid=101;
+
+1 row updated.
+
+SQL> select * from myview;
+
+       EID ENAME         ESALARY        DNO
+---------- ---------- ---------- ----------
+       101 Valan            3000         10
+       102 Raj              3000         10
+
+SQL> select * from employee;
+
+       EID ENAME         ESALARY        DNO
+---------- ---------- ---------- ----------
+       101 Valan            3000         10
+       102 Raj              3000         10
+       103 Kumar            4000         20
+       104 Vijay            5000         20
+       105 Ajay             6000         30
+       106                  3000         30
+
+6 rows selected.
+
+SQL> delete from myview where eid=101;
+
+1 row deleted.
+
+SQL> select * from myview;
+
+       EID ENAME         ESALARY        DNO
+---------- ---------- ---------- ----------
+       102 Raj              3000         10
+
+SQL> drop view myview;
+
+View dropped.
+
+SQL> select eid,ename from employee;
+
+       EID ENAME
+---------- ----------
+       102 Raj
+       103 Kumar
+       104 Vijay
+       105 Ajay
+       106
+
+SQL> select eid as "Employee Id" , ename "Employee Name " from employee;
+
+Employee Id Employee N
+----------- ----------
+        102 Raj
+        103 Kumar
+        104 Vijay
+        105 Ajay
+        106
+
+SQL> select dno ,count(*) as  from employee group by dno;
+
+       DNO COUNT(*)AS
+---------- ----------
+        30          2
+        20          2
+        10          1
+
+SQL> select dno ,count(*) from employee group by dno;
+
+       DNO   COUNT(*)
+---------- ----------
+        30          2
+        20          2
+        10          1
+
+SQL> select dno ,count(*) as "Total No of Employee" from employee group by dno;
+
+       DNO Total No of Employee
+---------- --------------------
+        30                    2
+        20                    2
+        10                    1
+
+SQL>

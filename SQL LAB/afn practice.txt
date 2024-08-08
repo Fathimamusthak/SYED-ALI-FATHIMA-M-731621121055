@@ -1,0 +1,407 @@
+SQL> create table tbl_employee(eid number(10),ename varchar(10),esalary varchar(10));
+
+Table created.
+
+SQL> insert into tbl_employee values(101,'Valan',2000);
+
+1 row created.
+
+SQL>  insert into tbl_employee values(102,'Raj',3000);
+
+1 row created.
+
+SQL>  insert into tbl_employee values(103,'Kumar',4000);
+
+1 row created.
+
+SQL>  insert into tbl_employee values(104,'Fathima',5000);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from tbl_employee
+  2  select * from tbl_employee;
+select * from tbl_employee
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended
+
+
+SQL>
+SQL> select * from tbl_employee;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+       102 Raj        3000
+       103 Kumar      4000
+       104 Fathima    5000
+
+SQL> select * from tbl_employee where eid in(101,102,106);
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+       102 Raj        3000
+
+SQL> select * from tbl_employee where eid not in(101,102,106);
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       103 Kumar      4000
+       104 Fathima    5000
+
+SQL> select * from tbl_employee where esalary between 2000 and 5000;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+       102 Raj        3000
+       103 Kumar      4000
+       104 Fathima    5000
+
+SQL> select * from tbl_employee where esalary not between 2000 and 5000;
+
+no rows selected
+
+SQL> select * from tbl_employee where esalary not between 3000 and 5000;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+
+SQL> select * from tbl_employee where eid in (101,102,104) and esalary >4000;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       104 Fathima    5000
+
+SQL> select * from tbl_employee where eid in (101,102,104) or esalary >4000;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+       102 Raj        3000
+       104 Fathima    5000
+
+SQL> select * from tbl_employee where eid in (101,102,104) or esalary >4000;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+       102 Raj        3000
+       104 Fathima    5000
+
+SQL> select * from tbl_employee;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+       102 Raj        3000
+       103 Kumar      4000
+       104 Fathima    5000
+
+SQL> select * from tbl_employee where eid in (101,102,104) or esalary >4000;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+       102 Raj        3000
+       104 Fathima    5000
+
+SQL> select * from tbl_mployee where eid > 103 and esalary <4000;
+select * from tbl_mployee where eid > 103 and esalary <4000
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from tbl_employee where eid > 103 and esalary < 4000;
+
+no rows selected
+
+SQL>  select * from tbl_employee where eid > 103 or esalary < 4000;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+       102 Raj        3000
+       104 Fathima    5000
+
+SQL> insert into tbl_employee values(106,3000);
+insert into tbl_employee values(106,3000)
+            *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> insert into tbl_employee (eid,esalary) values (106,3000);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from tbl_employee;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+       102 Raj        3000
+       103 Kumar      4000
+       104 Fathima    5000
+       106            3000
+
+SQL>
+SQL> select * from tbl_employee ename is null;
+select * from tbl_employee ename is null
+                                 *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> select * from tbl_employee where ename is null;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       106            3000
+
+SQL> select * from tbl_employee  where ename is not  null;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+       102 Raj        3000
+       103 Kumar      4000
+       104 Fathima    5000
+
+SQL> select * from tbl_employee where ename like 'F%';
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       104 Fathima    5000
+
+SQL> select * from tbl_employee where ename like '_a%';
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+       102 Raj        3000
+       104 Fathima    5000
+
+SQL> select * from tbl_employee where ename like '__t%';
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       104 Fathima    5000
+
+SQL> select * from tbl_employee where ename like '%y';
+
+no rows selected
+
+SQL> select * from tbl_employee where ename like '%t';
+
+no rows selected
+
+SQL> select * from tbl_employee where ename like '%a';
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       104 Fathima    5000
+
+SQL> select * from tbl_employee where ename like '%a%';
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+       102 Raj        3000
+       103 Kumar      4000
+       104 Fathima    5000
+
+SQL> select * from tbl_employee where ename not like '%a%';
+
+no rows selected
+
+SQL> select * from tbl_employee where ename not like '%t%';
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+       102 Raj        3000
+       103 Kumar      4000
+
+SQL> select * from tbl_employee order by ename;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       104 Fathima    5000
+       103 Kumar      4000
+       102 Raj        3000
+       101 Valan      2000
+       106            3000
+
+SQL> select * from tbl_employee order by ename desc;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       106            3000
+       101 Valan      2000
+       102 Raj        3000
+       103 Kumar      4000
+       104 Fathima    5000
+
+SQL> select * from tbl_employee;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+       102 Raj        3000
+       103 Kumar      4000
+       104 Fathima    5000
+       106            3000
+
+SQL> alter table tbl_employee add doj date;
+
+Table altered.
+
+SQL> select * from tbl_employee;
+
+       EID ENAME      ESALARY    DOJ
+---------- ---------- ---------- ---------
+       101 Valan      2000
+       102 Raj        3000
+       103 Kumar      4000
+       104 Fathima    5000
+       106            3000
+
+SQL> update tbl_employee set doj=sysdate where eid=103;
+
+1 row updated.
+
+SQL> select * from tbl_employee;
+
+       EID ENAME      ESALARY    DOJ
+---------- ---------- ---------- ---------
+       101 Valan      2000
+       102 Raj        3000
+       103 Kumar      4000       07-AUG-24
+       104 Fathima    5000
+       106            3000
+
+SQL> update tbl_employee set doj='05-Aug-24' where eid in (101,104);
+
+2 rows updated.
+
+SQL> select * from tbl_employee;
+
+       EID ENAME      ESALARY    DOJ
+---------- ---------- ---------- ---------
+       101 Valan      2000       05-AUG-24
+       102 Raj        3000
+       103 Kumar      4000       07-AUG-24
+       104 Fathima    5000       05-AUG-24
+       106            3000
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from tbl_employee;
+
+       EID ENAME      ESALARY    DOJ
+---------- ---------- ---------- ---------
+       101 Valan      2000       05-AUG-24
+       102 Raj        3000
+       103 Kumar      4000       07-AUG-24
+       104 Fathima    5000       05-AUG-24
+       106            3000
+
+SQL> alter table tbl_employee drop column doj;
+
+Table altered.
+
+SQL> select * from tbl_employee;
+
+       EID ENAME      ESALARY
+---------- ---------- ----------
+       101 Valan      2000
+       102 Raj        3000
+       103 Kumar      4000
+       104 Fathima    5000
+       106            3000
+
+SQL> desc tbl_employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                                NUMBER(10)
+ ENAME                                              VARCHAR2(10)
+ ESALARY                                            VARCHAR2(10)
+
+SQL> alter table tbl_employee modify eid number(7);
+alter table tbl_employee modify eid number(7)
+                                *
+ERROR at line 1:
+ORA-01440: column to be modified must be empty to decrease precision or scale
+
+
+SQL> alter table tbl_employee modify esalary number(7);
+alter table tbl_employee modify esalary number(7)
+                                *
+ERROR at line 1:
+ORA-01439: column to be modified must be empty to change datatype
+
+
+SQL> alter table tbl_employee modify esalary varchar2(15);
+
+Table altered.
+
+SQL> desc tbl_employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                                NUMBER(10)
+ ENAME                                              VARCHAR2(10)
+ ESALARY                                            VARCHAR2(15)
+
+SQL> alter table tbl_employee rename column eid to empid;
+
+Table altered.
+
+SQL> select * from tbl_employee;
+
+     EMPID ENAME      ESALARY
+---------- ---------- ---------------
+       101 Valan      2000
+       102 Raj        3000
+       103 Kumar      4000
+       104 Fathima    5000
+       106            3000
+
+SQL> rename tbl_employee to tabel_employee;
+
+Table renamed.
+
+SQL> select * from tbl_employee;
+select * from tbl_employee
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from tabel_employee;
+
+     EMPID ENAME      ESALARY
+---------- ---------- ---------------
+       101 Valan      2000
+       102 Raj        3000
+       103 Kumar      4000
+       104 Fathima    5000
+       106            3000
+
+SQL>
+
+
+
